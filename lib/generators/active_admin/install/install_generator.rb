@@ -28,9 +28,9 @@ module ActiveAdmin
 
       def setup_routes
         if ARGV.include? "--skip-users"
-          route "ActiveAdmin.routes(self)"
+          route "ActiveAdmin.routes(self) if defined? ActiveAdmin"
         else # Ensure Active Admin routes occur after Devise routes so that Devise has higher priority
-          inject_into_file "config/routes.rb", "\n  ActiveAdmin.routes(self)", :after => /devise_for.*/
+          inject_into_file "config/routes.rb", "\n  ActiveAdmin.routes(self)  if defined? ActiveAdmin", :after => /devise_for.*/
         end
       end
 
