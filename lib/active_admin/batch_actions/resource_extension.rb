@@ -68,7 +68,13 @@ module ActiveAdmin
         add_batch_action :destroy, proc { I18n.t('active_admin.delete') }, destroy_options do |selected_ids|
           active_admin_config.resource_class.find(selected_ids).each { |r| r.destroy }
 
-          redirect_to active_admin_config.route_collection_path(params),
+          if params[:house_id].blank?
+            _path = active_admin_config.route_collection_path(params)
+          else
+            _path = request.fullpath[0..-14]
+          end
+
+          redirect_to _path,
                       :notice => I18n.t("active_admin.batch_actions.succesfully_destroyed",
                                         :count => selected_ids.count,
                                         :model => active_admin_config.resource_label.downcase,
