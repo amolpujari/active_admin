@@ -4,7 +4,6 @@ jQuery ($) ->
   # Use Rails.js click handler to allow for Rails' confirm dialogs
   #
 
-  $(document).undelegate "#batch_actions_selector li a", "click.rails"
   $(document).delegate "#batch_actions_selector li a", "click.rails", ->
     $("#batch_action").val $(@).attr("data-action")
     $("#collection_selection").submit()
